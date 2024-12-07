@@ -2,7 +2,7 @@
 
 import { Paper, Text, Button, Group, Divider } from '@mantine/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import PropTypes from 'prop-types';
 
 export const ViewModeTodoCard = ( props ) => {

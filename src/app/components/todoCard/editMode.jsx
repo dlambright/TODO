@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Paper, Button, Textarea, Checkbox } from '@mantine/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faCancel, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
+import { faCancel } from '@fortawesome/free-solid-svg-icons/faCancel';
+import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons/faDeleteLeft';
 import { updateTodoInDb, deleteTodoInDb } from './service';
 import PropTypes from 'prop-types';
 

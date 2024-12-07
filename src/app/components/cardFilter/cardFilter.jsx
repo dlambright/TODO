@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { TextInput, Paper, Text, Button, Group, Checkbox, Grid, Stack } from '@mantine/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { getTodosForName, createNewTodo } from './dbService'
 import { sortAndFilterTodos } from './service'
 import PropTypes from 'prop-types';
