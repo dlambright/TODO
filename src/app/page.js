@@ -1,95 +1,57 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-export default function Home() {
+import { Grid, Container, Divider } from '@mantine/core';
+import { TodoCard } from "./components/todoCard/todoCard";
+import { CardFilter } from './components/cardFilter/cardFilter';
+
+const Page = () => {
+  const [todos, setTodos] = useState( [] );
+  const [filteredTodos, setFilteredTodos] = useState( [] );
+
+  const updateTodosWithANewTodo = ( newTodo ) => {
+    const newTodos = todos.map( ( todo ) => todo.id === newTodo.id ? newTodo : todo );
+    setTodos( newTodos );
+  }
+
+  const updateTodosWithARemovedTodo = ( todoToRemove ) => {
+    setTodos( todos.filter( ( todo ) => todo.id !== todoToRemove.id ) );
+  }
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div style={{ minHeight: '100vh', backgroundColor: '#ececec' }}>
+      <Container
+        pt="xl"
+        pb="xl"
+      >
+        <CardFilter
+          todos={todos}
+          setTodos={setTodos}
+          setFilteredTodos={setFilteredTodos}
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <Divider my="sm" />
+        <Grid mt="lg">
+          {filteredTodos.map( ( todo ) => (
+            <Grid.Col
+              key={todo.updatedAt}
+              span={{ base: 12, md: 4 }}
+            >
+              <TodoCard
+                todo={todo}
+                updateTodosWithANewTodo={updateTodosWithANewTodo}
+                updateTodosWithARemovedTodo={updateTodosWithARemovedTodo}
+              />
+            </Grid.Col>
+          ) )}
+        </Grid>
+      </Container>
     </div>
-  );
+  )
 }
+
+Page.propTypes = {
+  // Empty since Page doesn't receive props
+};
+
+export default Page;
