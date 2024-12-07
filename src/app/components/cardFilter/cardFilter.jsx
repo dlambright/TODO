@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { TextInput, Paper, Text, Button, Group, Checkbox, Grid, Stack } from '@mantine/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { getTodosForName, createNewTodo } from './service'
+import { getTodosForName, createNewTodo } from './dbService'
+import { sortAndFilterTodos } from './service'
 import PropTypes from 'prop-types';
 
 export const CardFilter = ( props ) => {
@@ -26,17 +27,7 @@ export const CardFilter = ( props ) => {
   }
 
   useEffect( () => {
-    let filteredTodos = todos.filter( ( todo ) => filters[todo.status.toLowerCase()] )
-      .sort( ( a, b ) => {
-        if ( a.status < b.status ) {
-          return 1;
-        }
-        if ( a.status > b.status ) {
-          return -1;
-        }
-        return 0;
-      } );
-    setFilteredTodos( filteredTodos );
+    setFilteredTodos( sortAndFilterTodos( todos, filters ) );
   }, [todos, filters] );
 
   return (
