@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 export const CardFilter = ( props ) => {
   const { todos, setTodos, setFilteredTodos, } = props;
-  const [name, setName] = useState( 'duzn' );
+  const [name, setName] = useState( '' );
   const [titleText, setTitleText] = useState( 'No user selected' );
   const [loading, setLoading] = useState( false );
   const [filters, setFilters] = useState( { pending: true, completed: true, all: true } );
