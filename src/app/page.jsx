@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { Transition } from '@mantine/core';
 
 import { Grid, Container, Divider } from '@mantine/core';
 import { TodoCard } from "./components/todoCard/todoCard";
@@ -33,10 +33,7 @@ const Page = () => {
         <Divider my="sm" />
         <Grid mt="lg">
           {filteredTodos.map( ( todo ) => (
-            <Grid.Col
-              key={todo.updatedAt}
-              span={{ base: 12, md: 4 }}
-            >
+            <Grid.Col key={todo.updatedAt} span={{ base: 12, md: 4 }}>
               <TodoCard
                 todo={todo}
                 updateTodosWithANewTodo={updateTodosWithANewTodo}
@@ -46,12 +43,8 @@ const Page = () => {
           ) )}
         </Grid>
       </Container>
-    </div>
+    </div >
   )
 }
-
-Page.propTypes = {
-  // Empty since Page doesn't receive props
-};
 
 export default Page;

@@ -73,8 +73,9 @@ export const CardFilter = ( props ) => {
                     setTitleText( `Viewing todos for ${name}` );
                   }}
                   fullWidth
+                  disabled={name === ''}
                 >
-                  {`FIND TODOS FOR ${name}`}
+                  {name !== '' ? `FIND TODOS FOR ${name}` : 'ENTER A NAME'}
                 </Button>
 
               </Group>
