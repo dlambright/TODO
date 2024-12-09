@@ -18,3 +18,6 @@ A React-based Todo application using Next.js, AWS Amplify, and Mantine UI compon
 - Mantine UI for components
 - FontAwesome icons
 
+## Link
+
+The dev branch is deployed to [https://dev.d3m087wjlpvuyu.amplifyapp.com](https://dev.d3m087wjlpvuyu.amplifyapp.com)
