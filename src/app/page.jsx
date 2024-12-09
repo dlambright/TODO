@@ -1,34 +1,35 @@
 'use client';
-import { useState } from 'react';
-import { Transition } from '@mantine/core';
 
-import { Grid, Container, Divider } from '@mantine/core';
-import { TodoCard } from "./components/todoCard/todoCard";
 import { CardFilter } from './components/cardFilter/cardFilter';
+import { TodoCard } from './components/todoCard/todoCard';
+import {
+  Grid, Container, Divider,
+} from '@mantine/core';
+import { useState } from 'react';
 
 const Page = () => {
   const [todos, setTodos] = useState( [] );
   const [filteredTodos, setFilteredTodos] = useState( [] );
 
   const updateTodosWithANewTodo = ( newTodo ) => {
-    const newTodos = todos.map( ( todo ) => todo.id === newTodo.id ? newTodo : todo );
+    const newTodos = todos.map( ( todo ) => ( todo.id === newTodo.id ? newTodo : todo ) );
     setTodos( newTodos );
-  }
+  };
 
   const updateTodosWithARemovedTodo = ( todoToRemove ) => {
     setTodos( todos.filter( ( todo ) => todo.id !== todoToRemove.id ) );
-  }
+  };
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#ececec' }}>
       <Container
-        pt="xl"
         pb="xl"
+        pt="xl"
       >
         <CardFilter
-          todos={todos}
-          setTodos={setTodos}
           setFilteredTodos={setFilteredTodos}
+          setTodos={setTodos}
+          todos={todos}
         />
         <Divider my="sm" />
         <Grid mt="lg">
@@ -43,8 +44,8 @@ const Page = () => {
           ) )}
         </Grid>
       </Container>
-    </div >
-  )
-}
+    </div>
+  );
+};
 
 export default Page;

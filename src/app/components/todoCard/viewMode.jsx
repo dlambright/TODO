@@ -1,8 +1,10 @@
 'use client';
 
-import { Paper, Text, Button, Group, Divider } from '@mantine/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  Paper, Text, Button, Group, Divider,
+} from '@mantine/core';
 import PropTypes from 'prop-types';
 
 export const ViewModeTodoCard = ( props ) => {
@@ -10,9 +12,9 @@ export const ViewModeTodoCard = ( props ) => {
 
   return (
     <Paper
-      withBorder
       p="md"
       shadow="sm"
+      withBorder
     >
       <Text
         size="xl"
@@ -40,8 +42,8 @@ export const ViewModeTodoCard = ( props ) => {
         EDIT
       </Button>
     </Paper>
-  )
-}
+  );
+};
 
 ViewModeTodoCard.propTypes = {
   todo: PropTypes.shape( {

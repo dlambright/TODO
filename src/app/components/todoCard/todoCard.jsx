@@ -1,8 +1,9 @@
 'use client';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { ViewModeTodoCard } from './viewMode'
+
 import { EditModeTodoCard } from './editMode';
+import { ViewModeTodoCard } from './viewMode';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 /**
  * TodoCard component that handles both view and edit modes for a todo item
@@ -18,13 +19,13 @@ export const TodoCard = ( { todo, updateTodosWithANewTodo, updateTodosWithARemov
     <>
       {viewMode === 'VIEW' ? (
         <ViewModeTodoCard
-          todo={todo}
           setViewMode={setViewMode}
+          todo={todo}
         />
       ) : (
         <EditModeTodoCard
-          todo={todo}
           setViewMode={setViewMode}
+          todo={todo}
           updateTodosWithANewTodo={updateTodosWithANewTodo}
           updateTodosWithARemovedTodo={updateTodosWithARemovedTodo}
         />
@@ -35,11 +36,11 @@ export const TodoCard = ( { todo, updateTodosWithANewTodo, updateTodosWithARemov
 
 TodoCard.propTypes = {
   todo: PropTypes.shape( {
-    id: PropTypes.string.required,
-    description: PropTypes.string.required,
-    status: PropTypes.oneOf( ['pending', 'completed'] ).required,
-    updatedAt: PropTypes.string.required,
-  } ).required,
-  updateTodosWithANewTodo: PropTypes.func.required,
-  updateTodosWithARemovedTodo: PropTypes.func.required,
+    id: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    status: PropTypes.oneOf( ['pending', 'completed'] ).isRequired,
+    updatedAt: PropTypes.string.isRequired,
+  } ).isRequired,
+  updateTodosWithANewTodo: PropTypes.func.isRequired,
+  updateTodosWithARemovedTodo: PropTypes.func.isRequired,
 };

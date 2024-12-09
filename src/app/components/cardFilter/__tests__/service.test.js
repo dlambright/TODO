@@ -19,7 +19,7 @@ describe( 'sortAndFilterTodos', () => {
     const result = sortAndFilterTodos( mockTodos, filters );
 
     expect( result ).toHaveLength( 3 );
-    expect( result.every( todo => todo.status === 'pending' ) ).toBe( true );
+    expect( result.every( (todo) => todo.status === 'pending' ) ).toBe( true );
   } );
 
   it( 'should sort todos by status in descending order', () => {

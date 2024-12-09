@@ -1,64 +1,71 @@
-import { useState } from 'react';
-import { Paper, Button, Textarea, Checkbox } from '@mantine/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { updateTodoInDb, deleteTodoInDb } from './service';
 import { faCancel } from '@fortawesome/free-solid-svg-icons/faCancel';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons/faDeleteLeft';
 import { faSave } from '@fortawesome/free-solid-svg-icons/faSave';
-import { updateTodoInDb, deleteTodoInDb } from './service';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  Paper, Button, Textarea, Checkbox,
+} from '@mantine/core';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 export const EditModeTodoCard = ( props ) => {
-  const { todo, setViewMode, updateTodosWithANewTodo, updateTodosWithARemovedTodo } = props;
+  const {
+    todo, setViewMode, updateTodosWithANewTodo, updateTodosWithARemovedTodo,
+  } = props;
   const [updatedTodo, setUpdatedTodo] = useState( todo );
 
   const updateTodo = async () => {
     const result = await updateTodoInDb( updatedTodo );
     updateTodosWithANewTodo( result );
-  }
+  };
 
   const deleteTodo = async () => {
     const result = await deleteTodoInDb( updatedTodo );
     updateTodosWithARemovedTodo( result );
-  }
+  };
 
   return (
     <Paper
-      withBorder
       p="md"
       shadow="sm"
+      withBorder
     >
       <Textarea
         label="Description"
-        value={updatedTodo.description}
-        onChange={( event ) => setUpdatedTodo( { ...updatedTodo, description: event.target.value } )}
         mb="md"
+        onChange={( event ) => setUpdatedTodo( {
+          ...updatedTodo,
+          description: event.target.value,
+        } )}
+        value={updatedTodo.description}
       />
       <Checkbox
         checked={updatedTodo.status === 'completed'}
         label="Completed"
         mb="md"
         onChange={( e ) => {
-          setUpdatedTodo( { ...updatedTodo, status: e.target.checked ? 'completed' : 'pending' } )
+          setUpdatedTodo( { ...updatedTodo, status: e.target.checked ? 'completed' : 'pending' } );
         }}
       />
       <Button
+        color="orange"
         fullWidth
         leftSection={<FontAwesomeIcon icon={faCancel} />}
-        color="orange"
-        onClick={() => setViewMode( 'VIEW' )}
         mb="sm"
+        onClick={() => setViewMode( 'VIEW' )}
       >
         CANCEL
       </Button>
       <Button
+        color="red"
         fullWidth
         leftSection={<FontAwesomeIcon icon={faDeleteLeft} />}
-        color="red"
+        mb="sm"
         onClick={() => {
           deleteTodo();
-          setViewMode( 'VIEW' )
+          setViewMode( 'VIEW' );
         }}
-        mb="sm"
       >
         DELETE
       </Button>
@@ -74,8 +81,8 @@ export const EditModeTodoCard = ( props ) => {
         SAVE
       </Button>
     </Paper>
-  )
-}
+  );
+};
 
 EditModeTodoCard.propTypes = {
   todo: PropTypes.shape( {

@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { TextInput, Paper, Text, Button, Group, Checkbox, Grid, Stack } from '@mantine/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getTodosForName, createNewTodo } from './dbService';
+import { sortAndFilterTodos } from './service';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
-import { getTodosForName, createNewTodo } from './dbService'
-import { sortAndFilterTodos } from './service'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  TextInput, Paper, Text, Button, Group, Checkbox, Grid, Stack,
+} from '@mantine/core';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 
 export const CardFilter = ( props ) => {
-  const { todos, setTodos, setFilteredTodos, } = props;
+  const { todos, setTodos, setFilteredTodos } = props;
   const [name, setName] = useState( '' );
   const [titleText, setTitleText] = useState( 'No user selected' );
   const [loading, setLoading] = useState( false );
@@ -19,13 +21,13 @@ export const CardFilter = ( props ) => {
   const fetchNewTodos = async () => {
     const newTodos = await getTodosForName( name );
     setTodos( newTodos );
-    setLoading( false )
-  }
+    setLoading( false );
+  };
 
   const createTodo = async () => {
     const newTodo = await createNewTodo( name );
-    setTodos( [...todos, newTodo] )
-  }
+    setTodos( [...todos, newTodo] );
+  };
 
   useEffect( () => {
     setFilteredTodos( sortAndFilterTodos( todos, filters ) );
@@ -33,17 +35,17 @@ export const CardFilter = ( props ) => {
 
   return (
     <Paper
-      withBorder
       p="md"
       shadow="sm"
+      withBorder
     >
       <Text
         fw={900}
-        size="3rem"
         gradient={{ from: 'green', to: 'cyan', deg: 90 }}
-        variant="gradient"
         pb="md"
+        size="3rem"
         ta="center"
+        variant="gradient"
       >
         {titleText}
       </Text>
@@ -57,14 +59,16 @@ export const CardFilter = ( props ) => {
           >
             <Stack>
               <Group
-                align='flex-end'
+                align="flex-end"
               >
                 <TextInput
                   label="Name"
-                  value={name}
                   onChange={( event ) => setName( event.target.value )}
+                  value={name}
                 />
                 <Button
+                  disabled={name === ''}
+                  fullWidth
                   leftSection={<FontAwesomeIcon icon={faMagnifyingGlass} />}
                   loading={loading}
                   onClick={() => {
@@ -72,8 +76,6 @@ export const CardFilter = ( props ) => {
                     fetchNewTodos();
                     setTitleText( `Viewing todos for ${name}` );
                   }}
-                  fullWidth
-                  disabled={name === ''}
                 >
                   {name !== '' ? `FIND TODOS FOR ${name}` : 'ENTER A NAME'}
                 </Button>
@@ -97,8 +99,8 @@ export const CardFilter = ( props ) => {
             span={{ base: 12, md: 6 }}
           >
             <Paper
-              withBorder
               p="md"
+              withBorder
             >
               <Text
                 fw="bold"
@@ -108,33 +110,41 @@ export const CardFilter = ( props ) => {
               </Text>
               <Checkbox
                 checked={filters.pending}
-                onChange={( event ) => setFilters( { ...filters, pending: event.target.checked, all: filters.completed && event.target.checked } )}
                 label="Pending"
                 mb="xs"
+                onChange={( event ) => setFilters( {
+                  ...filters,
+                  pending: event.target.checked,
+                  all: filters.completed && event.target.checked,
+                } )}
               />
               <Checkbox
                 checked={filters.completed}
-                onChange={( event ) => setFilters( { ...filters, completed: event.target.checked, all: filters.pending && event.target.checked } )}
                 label="Completed"
                 mb="xs"
+                onChange={( event ) => setFilters( {
+                  ...filters,
+                  completed: event.target.checked,
+                  all: filters.pending && event.target.checked,
+                } )}
               />
               <Checkbox
                 checked={filters.all}
+                label="All"
+                mb="xs"
                 onChange={( event ) => setFilters( {
                   completed: event.target.checked,
                   pending: event.target.checked,
-                  all: event.target.checked
+                  all: event.target.checked,
                 } )}
-                label="All"
-                mb="xs"
               />
             </Paper>
           </Grid.Col>
         )}
       </Grid>
     </Paper>
-  )
-}
+  );
+};
 
 CardFilter.propTypes = {
   todos: PropTypes.arrayOf(
@@ -144,7 +154,7 @@ CardFilter.propTypes = {
       description: PropTypes.string.isRequired,
       status: PropTypes.oneOf( ['pending', 'completed'] ).isRequired,
       updatedAt: PropTypes.string.isRequired,
-    } )
+    } ),
   ).isRequired,
   setTodos: PropTypes.func.isRequired,
   setFilteredTodos: PropTypes.func.isRequired,
